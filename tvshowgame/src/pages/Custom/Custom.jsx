@@ -22,14 +22,60 @@ const MOCK_CHART = Array.from({ length: 20 }).map((_, i) => ({
 }));
 
 const MOCK_DATABASE = [
-  { id: "db-1", title: "Hype Boy", artist: "NewJeans", date: "2022.08" },
-  { id: "db-2", title: "Attention", artist: "NewJeans", date: "2022.08" },
-  { id: "db-3", title: "Love Dive", artist: "IVE", date: "2022.04" },
-  { id: "db-4", title: "After LIKE", artist: "IVE", date: "2022.08" },
-  { id: "db-5", title: "Dynamite", artist: "BTS", date: "2020.08" },
-  { id: "db-6", title: "Spring Day", artist: "BTS", date: "2017.02" },
-  { id: "db-7", title: "Gangnam Style", artist: "PSY", date: "2012.07" },
-  { id: "db-8", title: "Gee", artist: "Girls Generation", date: "2009.01" },
+  { 
+    id: 'db-1', 
+    title: 'Hype Boy', 
+    artist: 'NewJeans', 
+    date: '2022.08',
+    imageUrl: '/mock_images/hypeboy.png',
+    lyricSegment: "Cause I know what you like boy, You're my chemical hype boy",
+    youtubeUrl: '11cta61wi0g' 
+  },
+  { id: "db-2", title: "손오공", artist: "SEVENTEEN", date: "2023.04",
+    lyricSegment: "영웅본색 Like This 시간과 공간에 구애받지 않는 자세 힘을 다하고 쓰러져도 포기를 모르고 날뛰는 중 마치 된 것 같아 손오공",
+    youtubeUrl: '-GQg25oP0S4',
+    imageUrl: '/mock_images/sonogong.png'
+  },
+  { id: 'db-3', 
+    title: 'Love Dive', 
+    artist: 'IVE', 
+    date: '2022.04',
+    imageUrl: '/mock_images/lovedive.png',
+    lyricSegment: "숨 참고 love dive",
+    youtubeUrl: 'Y8JFxS1HlDo'
+  },
+  { id: "db-4", title: "After LIKE", artist: "IVE", date: "2022.08",
+    lyricSegment: "조심해 두 심장에 핀 새파란 이 불꽃이저 태양보다 뜨거울 테니",
+    youtubeUrl: 'F0B7HDiY-10',
+    imageUrl: '/mock_images/afterlike.png'
+   },
+  { id: "db-5", title: "Dynamite", artist: "BTS", date: "2020.08",
+    lyricSegment: "Cause I, I, I'm in the stars tonight So watch me bring the fire and set the night alight",
+    imageUrl: '/mock_images/dynamite.png',
+    youtubeUrl: 'gdZLi9oWNZg'
+   },
+  { id: "db-6", title: "버스안에서", artist: "자자", date: "2007.07",
+    lyricSegment: "나는 매일 학교가는 버스 안에서 항상 같은 자리에 앉아 있는 그녈 보곤해",
+    imageUrl: '/mock_images/버스안에서.png',
+    youtubeUrl: 'ElQOGND2EKw'
+   },
+  { id: "db-7", title: "Gangnam Style", artist: "PSY", date: "2012.07",
+    lyricSegment: "낮에는 따사로운 인간적인 여자, 커피 한 잔의 여유를 아는 품격있는 여자",
+    imageUrl: '/mock_images/gangnamstyle.png',
+    youtubeUrl: '9bZkp7q19f0'
+   },
+  { id: "db-8", title: "Gee", artist: "Girls Generation", date: "2009.01", 
+    lyricSegment: "두근 두근거려 밤엔 잠도 못 이루죠 나는 나는 바본가봐요 그대 그대밖에 모르는 바보 그래요 그댈 보는 난 너무 반짝 반짝 눈이 부셔" 
+    ,imageUrl: '/mock_images/gee.png'
+    ,youtubeUrl: 'U7mPqycQ0tQ' },
+  { id: "db-9", title: "Blue Valentine", artist: "NMIXX", date: "2025.10", lyricSegment: "You’ll always be my blue valentine You’ll always be my blue valentine 식어도 타오르는 얼음 속 불꽃 아무 겁도 없이 뻗어버린 손 Hot and icy But I like it It’s so you?",
+    imageUrl: '/mock_images/bluevalentine.png',
+    youtubeUrl: 'EmeW6li6bbo'
+  },
+  { id: "db-10", title: "SPAGHETTI", artist: "LE SERAFIM", date: "2025.10", lyricSegment: "이빨 사이 낀 SPAGHETTI 빼고 싶니 bon appétit 그냥 포기해 어차피 Eat it up eat it eat it up",
+    youtubeUrl: 'TvVtYaqCni8',
+    imageUrl: '/mock_images/spaghetti.png'
+   },
 ];
 
 const MOCK_PRESETS = [
@@ -201,7 +247,7 @@ const Custom = () => {
         // 현재 playlist에 없는 곡들만 필터링
         const currentIds = playlist.map(s => s.id);
         // 예시로 MOCK_CHART를 풀(Pool)로 사용하겠습니다. (실제론 전체 DB 사용)
-        const availableSongs = MOCK_CHART.filter(song => !currentIds.includes(song.id));
+        const availableSongs = MOCK_DATABASE.filter(song => !currentIds.includes(song.id));
 
         // 랜덤 섞기 후 필요한 만큼 자르기
         const randomFills = availableSongs
@@ -300,11 +346,20 @@ return (
                     />
                 </div>
             </div>
-          
+        
             <SongList 
                 songs={playlist} 
                 selectedIds={selectedLeft} 
-                onToggleSelect={(id) => { /*...기존...*/ }}
+                onToggleSelect={(id) => {
+                  if (selectedLeft.includes(id)) {
+                    setSelectedLeft(selectedLeft.filter(item => item !== id));
+                  } 
+                  // 선택 안 된 ID라면 추가 (spread)
+                  else {
+                    setSelectedLeft([...selectedLeft, id]);
+                  }
+                }
+                }
                 emptyMessage="곡을 추가하거나 추천 목록을 불러오세요." // 메시지 살짝 수정
             />
         </div>
@@ -329,7 +384,7 @@ return (
           </button>
         </div>
         {/* 3. 오른쪽: 노래 목록 (차트 or 검색결과) */}
-        <div className="flex-1 flex flex-col">
+        <div className="w-[500px] flex-1 flex flex-col">
           <h3 className="font-bold text-lg mb-2 text-gray-700">
             {rightMode === "chart" ? "Top 100 Chart" : "Search Results"}
           </h3>
