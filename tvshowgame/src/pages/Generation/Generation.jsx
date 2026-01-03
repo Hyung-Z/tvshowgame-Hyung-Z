@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Loader2, Play, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
+import { extractLyricSegment } from '../../utils/textUtils';
 
 const Generation = () => {
   const navigate = useNavigate();
@@ -34,12 +35,14 @@ const Generation = () => {
       for (let i = 0; i < initialSongs.length; i++) {
         const song = initialSongs[i];
         setCurrentGeneratingIndex(i + 1); // 현재 n번째 생성 중 표시
-
+        const lyricSegment = song.lyrics ? extractLyricSegment(song.lyrics) : song.lyricSegment;
+        song.lyricsSegment = lyricSegment; 
+        
         const prompt = `
-          A digital art illustration representing the following K-pop song lyrics: "${song.lyricSegment}".
+          A digital art illustration representing the following K-pop song lyrics: "${lyricSegment}".
           The mood should match the song "${song.title}" by "${song.artist}".
           Style: High quality, anime style, vibrant colors, atmosphere follows mood of the lyrics.
-          No text inside the image.
+          No text inside the image. if lyrics include some unappropriate words, please omit them and make it please.
         `;
 
         const response = await ai.models.generateContent({
