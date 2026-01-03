@@ -35,13 +35,10 @@ const Generation = () => {
         const song = initialSongs[i];
         setCurrentGeneratingIndex(i + 1); // 현재 n번째 생성 중 표시
 
-        // 1. 프롬프트 생성 (가사 + 스타일)
-        // DALL-E 2는 영어 프롬프트를 더 잘 알아듣지만, DALL-E 3는 한글도 꽤 잘 합니다.
-        // 혹시 퀄리티가 낮다면 가사를 번역해서 넣는 것이 좋습니다.
         const prompt = `
           A digital art illustration representing the following K-pop song lyrics: "${song.lyricSegment}".
           The mood should match the song "${song.title}" by "${song.artist}".
-          Style: High quality, anime style, vibrant colors, dreamy atmosphere.
+          Style: High quality, anime style, vibrant colors, atmosphere follows mood of the lyrics.
           No text inside the image.
         `;
 
