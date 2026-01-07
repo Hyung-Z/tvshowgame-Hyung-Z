@@ -7,6 +7,8 @@ import Custom from './pages/Custom/Custom'; // Custom 페이지도 미리 준비
 import Game from './pages/InGame/Game'; 
 import Generation from './pages/Generation/Generation'; // Generation 페이지 추가
 import Result from './pages/Result/Resultdev'; // 결과 페이지 추가
+import VideoSearchTest from './pages/Test/VideoSearchTest';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
           <Route path="/Game" element={<Game />} />       {/* 게임 플레이 화면 */}
           <Route path="/generation" element={<Generation />} /> {/* 생성 화면 */}
           <Route path='/result' element={ <Result/>} /> {/* 결과 화면  */}
+          <Route path="/test-video" element={<VideoSearchTest />} />
         </Route>
       </Routes>
     </BrowserRouter>

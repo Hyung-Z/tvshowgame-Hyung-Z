@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ChevronRight,
@@ -14,51 +14,16 @@ import PresetModal from './PresetModal';
 import SongCountAlert from './SongCountAlert'; 
 import { useSongData } from '../../hooks/useSongdata';
 
-// --- Mock Data (나중에 API로 대체) ---
-const MOCK_CHART = Array.from({ length: 20 }).map((_, i) => ({
-  id: `chart-${i}`,
-  title: `Chart Song ${i + 1}`,
-  artist: `Singer ${i}`,
-  date: "2024.01",
-}));
-
-
-const MOCK_PRESETS = [
-  {
-    id: 'p-1',
-    title: '2023 K-POP 명곡 모음',
-    description: '작년 한 해를 뜨겁게 달군 히트곡',
-    songs: [
-      { id: 'db-1', title: 'Hype Boy', artist: 'NewJeans', date: '2022.08' },
-      { id: 'db-3', title: 'Love Dive', artist: 'IVE', date: '2022.04' },
-    ]
-  },
-  {
-    id: 'p-2',
-    title: '월드 스타 BTS 스페셜',
-    description: '전 세계가 사랑한 그들의 노래',
-    songs: [
-      { id: 'db-5', title: 'Dynamite', artist: 'BTS', date: '2020.08' },
-      { id: 'db-6', title: 'Spring Day', artist: 'BTS', date: '2017.02' },
-    ]
-  },
-  {
-    id: 'p-3',
-    title: '추억의 싸이월드 BGM',
-    description: '도토리로 샀던 그 노래들',
-    songs: [
-      { id: 'db-8', title: 'Gee', artist: 'Girls Generation', date: '2009.01' },
-    ]
-  }
-];
 
 const Custom = () => {
     const navigate = useNavigate();
 
     // --- State: 데이터 목록 ---
     const [playlist, setPlaylist] = useState([]); // 왼쪽: 선택된 곡들
-    const [chartList] = useState(MOCK_CHART); // 오른쪽 1: 차트 데이터
+    const [chartList, setChartList] = useState([]);
+    const [isChartLoading, setIsChartLoading] = useState(true);
     const [searchList, setSearchList] = useState([]); // 오른쪽 2: 검색 결과 (유지됨)
+    const [presets, setPresets] = useState([]); // 프리셋 목록 상태
 
     // --- State: UI 및 선택 상태 ---
     const [rightMode, setRightMode] = useState("chart"); // 'chart' or 'search'
@@ -67,10 +32,80 @@ const Custom = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false); // ✨ 경고 모달 상태
 
     const { data: songData, isLoading, error } = useSongData(); // 커스텀 훅 사용
-    
+
     // 다중 선택을 위한 ID 배열
     const [selectedLeft, setSelectedLeft] = useState([]);
     const [selectedRight, setSelectedRight] = useState([]);
+
+    // 로드 시 차트 가져오기
+    useEffect(() => {
+      const fetchChartAndMap = async () => {
+        if (isLoading || songData.length === 0) return;
+        
+        try {
+          setIsChartLoading(true);
+          const response = await fetch('charts/chart202601.json')
+          const chartTitles = await response.json();
+          const mappedChart = chartTitles.map((title) => {
+            return songData.find(song => 
+              song.title.toLowerCase().trim() === title.toLowerCase().trim()
+            );
+          }).filter(item => item !== undefined);
+          setChartList(mappedChart);
+        }
+        catch (e) {
+          console.error('차트로딩실패', e);
+        }
+        finally {
+          setIsChartLoading(false);
+        }
+      }
+      fetchChartAndMap();
+
+
+    }, [songData,isLoading])
+
+    useEffect(() => {
+      const fetchPresets = async () => {
+        if (isLoading || songData.length === 0) return;
+
+        try {
+          const response = await fetch('/charts/presets.json');
+          const data = await response.json();
+
+
+          // ✨ 모달 UI가 깨지지 않게 데이터 모양 예쁘게 만들기
+          const presetArray = Object.keys(data).map((key, index) => ({
+            id: `preset-${index}`,
+            title: key,             // "🔥 2023 K-POP 명곡"
+            description: data[key][0], 
+            songTitles: data[key][1],  // 실제 로직에 쓸 제목 리스트
+            songCount: data[key][1].length // (선택사항) 곡 수 표시용
+          }));
+
+          const finalPresets = presetArray.map((preset) => { 
+            // (1) 제목들을 가지고 실제 노래 찾기
+            const foundSongs = preset.songTitles.map((title) => {
+              return songData.find(song => 
+                song.title.toLowerCase().trim() === title.toLowerCase().trim()
+              );
+            }).filter(item => item !== undefined); // DB에 없는 노래는 제외
+            
+            // (2) ✨ [핵심] 기존 프리셋 정보에 찾은 노래들을 합쳐서 반환
+            return {
+              ...preset,    // id, title, description 등 기존 정보 유지!
+              songs: foundSongs, // 실제 노래 객체들로 교체
+              songCount: foundSongs.length // (혹시 못 찾은 곡이 있을 수 있으니 개수 갱신)
+            };
+          });
+
+          setPresets(finalPresets);
+        } catch (error) {
+          console.error("프리셋 로딩 실패:", error);
+        }
+      };
+      fetchPresets();
+    }, [songData,isLoading]);
 
     // --- Helper: 선택 토글 함수 ---
     const toggleSelection = (id, currentSelected, setFn) => {
@@ -171,8 +206,12 @@ const Custom = () => {
         if (playlist.length < 10) {
         // 10곡 미만이면 경고 모달 오픈
         setIsAlertOpen(true);
-        } else {
-        // 10곡 이상이면 바로 진행
+        }
+        else if (playlist.length > 10) {
+          setIsAlertOpen(true);
+        }
+        else {
+        // 10곡 이면 바로 진행
         console.log("게임 생성:", playlist);
         navigate('/generation', { state: { songs: playlist } });
         }
@@ -287,7 +326,7 @@ return (
                     <PresetModal 
                         isOpen={isPresetOpen}
                         onClose={() => setIsPresetOpen(false)}
-                        presets={MOCK_PRESETS}
+                        presets={presets}
                         onSelect={handleLoadPreset}
                     />
                 </div>
@@ -340,6 +379,7 @@ return (
             onToggleSelect={(id) =>
               toggleSelection(id, selectedRight, setSelectedRight)
             }
+            emptyMessage={isChartLoading ? "차트 불러오는 중..." : "목록이 없습니다."}
           />
         </div>
       </div>
