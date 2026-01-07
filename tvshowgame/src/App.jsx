@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />           {/* 메인 화면 */}
-          <Route path="/new" element={<NewGame />} />     {/* ✨ 새로운 모드 선택 화면 */}
+          <Route path="/new" element={<NewGame />} />     {/* 모드 선택 화면 */}
           <Route path="/custom" element={<Custom />} />   {/* 커스텀 설정 화면 */}
           <Route path="/Game" element={<Game />} />       {/* 게임 플레이 화면 */}
           <Route path="/generation" element={<Generation />} /> {/* 생성 화면 */}
