@@ -42,23 +42,23 @@ const SearchModal = ({ isOpen, onClose, onSearch }) => {
             <label className="block text-xs font-semibold text-gray-500 mb-1">곡명</label>
             <input name="title" value={inputs.title} onChange={handleChange}
               className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" 
-              placeholder="예: Hype Boy" />
+              placeholder="예: 하얀 그리움" />
           </div>
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">가수</label>
             <input name="artist" value={inputs.artist} onChange={handleChange}
               className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" 
-              placeholder="예: NewJeans" />
+              placeholder="예: 프로미스나인" />
           </div>
           <div className="flex gap-2">
             <div className="flex-1">
               <label className="block text-xs font-semibold text-gray-500 mb-1">시작 연도</label>
-              <input name="yearFrom" type="number" placeholder="2000" value={inputs.yearFrom} onChange={handleChange}
+              <input name="yearFrom" type="number" placeholder="2018" value={inputs.yearFrom} onChange={handleChange}
                 className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" />
             </div>
             <div className="flex-1">
               <label className="block text-xs font-semibold text-gray-500 mb-1">종료 연도</label>
-              <input name="yearTo" type="number" placeholder="2024" value={inputs.yearTo} onChange={handleChange}
+              <input name="yearTo" type="number" placeholder="2026" value={inputs.yearTo} onChange={handleChange}
                 className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" />
             </div>
           </div>

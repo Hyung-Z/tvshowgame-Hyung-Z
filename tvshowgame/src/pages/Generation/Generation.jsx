@@ -76,7 +76,8 @@ const Generation = () => {
           imageUrl: imageUrl, // 화면 표시용
           b64Data: b64Data    // 다운로드용 (Base64 원본)
         });
-
+        
+        window.BACKUP_DATA = completedList;
         // 4. 진행률 업데이트
         setProgress(Math.round(((i + 1) / initialSongs.length) * 100));
       }

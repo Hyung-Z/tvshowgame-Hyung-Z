@@ -12,6 +12,8 @@ export const useSongData = () => {
         setIsLoading(true);
         // GitHub Raw URL (예시)
         const response = await fetch('https://raw.githubusercontent.com/Hyung-Z/tvshowgame/refs/heads/main/data.json');
+        // const response = await fetch('/new.json');
+
         if (!response.ok) throw new Error('데이터 로딩 실패');
 
 // JSON 형태 : "song-id" : [ 'mv_id', [song_name...], singer, lyrics, relase_date ]
