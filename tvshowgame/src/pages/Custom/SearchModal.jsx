@@ -16,6 +16,10 @@ const SearchModal = ({ isOpen, onClose, onSearch }) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const handleReset = (e) => {
+    setInputs({ title: '', artist: '', yearFrom: '', yearTo: '' });
+  }
+
   return (
     <>
       {/* 1. 투명한 배경 (외부 클릭 시 닫기용) */}
@@ -63,9 +67,20 @@ const SearchModal = ({ isOpen, onClose, onSearch }) => {
             </div>
           </div>
           
-          <button type="submit" className="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-bold hover:bg-blue-700 transition mt-2 shadow-md">
-            검색 적용
-          </button>
+          <div className='flex gap-2'>
+            <button 
+            type="button" 
+            onClick={handleReset}
+            className="w-full bg-gray-200 text-gray py-2.5 rounded-lg text-sm font-bold hover:bg-gray-300 transition mt-2 shadow-md">
+              초기화
+            </button>
+
+            <button type="submit" 
+            onClick={handleSubmit}
+            className="w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-bold hover:bg-blue-700 transition mt-2 shadow-md">
+              검색 적용
+            </button>
+          </div>
         </form>
       </div>
     </>

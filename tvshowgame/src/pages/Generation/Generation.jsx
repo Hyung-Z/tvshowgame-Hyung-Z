@@ -171,8 +171,8 @@ const Generation = () => {
         {/* 진행 중일 때만 보이는 팁 */}
         {!isReady && !errorMsg && (
            <p className="mt-4 text-xs text-gray-400 animate-pulse text-center max-w-sm break-keep">
-             현재 <span className="font-bold text-blue-500">"{initialSongs[currentGeneratingIndex-1]?.title}"</span>의 가사를 바탕으로 이미지를 생성 중입니다.
-             <br/>(곡당 약 5~10초 소요)
+             현재 가사를 바탕으로 이미지를 생성 중입니다.
+             <br/>(곡당 약 10~20초 소요)
            </p>
         )}
       </div>
@@ -203,7 +203,7 @@ const Generation = () => {
             onClick={handleDownloadAll}
             className="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-bold text-sm hover:bg-gray-200"
           >
-            📥 이미지 저장하기 (개발용)
+            📥 이미지 저장하기
           </button>
         )}
       </div>

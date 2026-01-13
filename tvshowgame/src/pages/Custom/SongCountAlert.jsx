@@ -18,16 +18,16 @@ const SongCountAlert = ({ isOpen, onClose, currentCount, onProceed, onFillRandom
           </h2>
           <div className="text-center text-sm text-gray-600 my-4">
             {currentCount < 10 ? (
-              // 10곡 미만일 때
+              // 5곡 미만일 때
               <span>
-                선택된 곡이 10곡보다 적습니다.<br />
+                선택된 곡이 5곡보다 적습니다.<br />
                 <span className="text-blue-600 font-bold">부족한 곡은 랜덤으로 채워서 시작합니다.</span>
               </span>
             ) : (
-              // 10곡 이상일 때
+              // 5곡 이상일 때
               <span>
-                10곡을 초과했습니다.<br />
-                <span className="text-blue-600 font-bold">선택하신 목록 중 10곡이 랜덤으로 출제됩니다.</span>
+                5곡을 초과했습니다.<br />
+                <span className="text-blue-600 font-bold">선택하신 목록 중 5곡이 랜덤으로 출제됩니다.</span>
               </span>
             )}
           </div>
@@ -53,7 +53,7 @@ const SongCountAlert = ({ isOpen, onClose, currentCount, onProceed, onFillRandom
           </button>
 
           {/* 3. 랜덤 채우기 */}
-           { currentCount < 10 ? (          
+           { currentCount < 5 ? (          
             <button 
             onClick={onFillRandom}
             className="flex-1 py-3 px-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-lg hover:shadow-blue-500/30 transition text-sm break-keep"

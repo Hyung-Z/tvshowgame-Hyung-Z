@@ -23,8 +23,9 @@ const NewGame = () => {
             Custom
           </div>
           <p className="text-center leading-8 text-gray-900 text-m">
-            본 게임은 원하시는 범위 내의 노래들로 구성되어, <strong>총 10문제</strong>로 진행됩니다. < br/>
-            <strong>10곡을 꼭 맞추어 선택하지 않아도 됩니다!</strong> 안내를 잘 읽고 진행해주세요! < br/>
+            AI가 랜덤한 가사를 골라 생성한 이미지를 보고, 제목을 유추하시면 됩니다. < br/> 
+            본 게임은 원하시는 범위 내의 노래들로 구성되어, <strong>총 5문제</strong>로 진행됩니다. < br/>
+            <strong>5곡을 꼭 맞추어 선택하지 않아도 됩니다!</strong> 안내를 잘 읽고 진행해주세요! < br/>
           </p>
         </button>
       </div>

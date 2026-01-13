@@ -256,7 +256,7 @@ const Custom = () => {
 
   //생성하기 버튼 핸들러
   const handleCreateClick = () => {
-    if (playlist.length !== 10) {
+    if (playlist.length !== 5) {
       setIsAlertOpen(true);
     } else {
       // 10곡 이면 바로 진행
@@ -279,7 +279,7 @@ const Custom = () => {
 
   // "랜덤으로 채워서 진행하기" 핸들러
   const handleFillAndStart = () => {
-    const neededCount = 10 - playlist.length;
+    const neededCount = 5 - playlist.length;
 
     // 전체 DB(MOCK_DATABASE + MOCK_CHART 등 가용 자원)에서
     // 현재 playlist에 없는 곡들만 필터링
@@ -302,7 +302,7 @@ const Custom = () => {
   };
 
   const handleOverStart = () => {
-    if (playlist.length > 10) {
+    if (playlist.length > 5) {
       playlist.sort(()=> 0.5 - Math.random() ).slice(0,10)
     }
     setPlaylist(playlist);
