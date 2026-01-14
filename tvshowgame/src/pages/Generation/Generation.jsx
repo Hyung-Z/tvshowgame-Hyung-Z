@@ -75,26 +75,6 @@ const Generation = () => {
     }
   };
 
-  // ✨ 이미지 다운로드 헬퍼 함수
-  const downloadBase64 = (base64Data, fileName) => {
-    const linkSource = `data:image/png;base64,${base64Data}`;
-    const downloadLink = document.createElement("a");
-    downloadLink.href = linkSource;
-    downloadLink.download = `${fileName}.png`;
-    downloadLink.click();
-  };
-
-  // ✨ 전체 다운로드 버튼 핸들러
-  const handleDownloadAll = () => {
-    songsWithImages.forEach((song, index) => {
-      if (song.b64Data) {
-        // 파일명 안전하게 변환
-        const safeTitle = song.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        const safeseg = song.lyricsSeg.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        downloadBase64(song.b64Data, `${safeTitle}_${safeseg}`);
-      }
-    });
-  };
 
   // --- Effect: 페이지 진입 시 1회 실행 ---
   useEffect(() => {
@@ -183,14 +163,14 @@ const Generation = () => {
         </button>
 
         {/* ✨ [추가] 개발용: 이미지 저장 버튼 */}
-        {isReady && (
+        {/* {isReady && (
           <button 
             onClick={handleDownloadAll}
             className="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-bold text-sm hover:bg-gray-200"
           >
             📥 이미지 저장하기
           </button>
-        )}
+        )} */}
       </div>
 
     </div>
