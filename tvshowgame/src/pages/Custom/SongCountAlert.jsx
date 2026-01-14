@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertCircle } from 'lucide-react';
 
-const SongCountAlert = ({ isOpen, onClose, currentCount, onProceed, onFillRandom }) => {
+const SongCountAlert = ({ isOpen, onClose, currentCount, onProceed, onFillRandom, overStart }) => {
   if (!isOpen) return null;
 
   return (
@@ -17,7 +17,7 @@ const SongCountAlert = ({ isOpen, onClose, currentCount, onProceed, onFillRandom
             현재 선택 곡 수 : <span className="text-blue-600">{currentCount}개</span>
           </h2>
           <div className="text-center text-sm text-gray-600 my-4">
-            {currentCount < 10 ? (
+            {currentCount < 5 ? (
               // 5곡 미만일 때
               <span>
                 선택된 곡이 5곡보다 적습니다.<br />
@@ -45,12 +45,23 @@ const SongCountAlert = ({ isOpen, onClose, currentCount, onProceed, onFillRandom
           </button>
 
           {/* 2. 이대로 진행하기 */}
-          <button 
-            onClick={onProceed}
-            className="flex-1 py-3 px-4 bg-white border-2 border-blue-100 text-blue-600 rounded-xl font-bold hover:bg-blue-50 hover:border-blue-200 transition"
-          >
-            이대로 진행
-          </button>
+          { currentCount < 5 ? (
+            <button 
+              onClick={onProceed}
+              className="flex-1 py-3 px-4 bg-white border-2 border-blue-100 text-blue-600 rounded-xl font-bold hover:bg-blue-50 hover:border-blue-200 transition"
+            >
+              이대로 진행
+            </button>
+          ):
+          (
+            <button 
+              onClick={overStart}
+              className="flex-1 py-3 px-4 bg-white border-2 border-blue-100 text-blue-600 rounded-xl font-bold hover:bg-blue-50 hover:border-blue-200 transition"
+            >
+              5곡 진행 (랜덤)
+            </button>
+          )
+          }
 
           {/* 3. 랜덤 채우기 */}
            { currentCount < 5 ? (          

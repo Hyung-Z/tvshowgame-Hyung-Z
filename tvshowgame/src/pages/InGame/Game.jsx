@@ -101,13 +101,7 @@ const Game = () => {
 
       {/* 2. 우측 패널 (기존과 동일) */}
       <div className="flex-1 bg-white flex flex-col justify-center px-8 md:px-16 lg:px-24 transition-all">
-         {/* ... (우측 코드는 변경 사항 없음) ... */}
-         
-         {/* ... 상단 상태 표시 ... */}
-         {/* ... 입력 폼 / 정답 정보 ... */}
-         {/* ... 하단 점수 및 버튼 ... */}
-         
-         {/* (기존 코드 그대로 유지하면 됩니다) */}
+
          <div className="mb-8 text-center">
            {!showResult ? (
              <>
@@ -159,7 +153,7 @@ const Game = () => {
             <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 text-center">
               <p className="text-sm text-blue-500 font-semibold mb-2">AI 그림 생성에 활용된 가사</p>
               <p className="text-lg text-gray-800 font-medium break-keep italic">
-                " {currentSong.lyricSegment} "
+                " {currentSong.lyricsSeg} "
               </p>
             </div>
           </div>

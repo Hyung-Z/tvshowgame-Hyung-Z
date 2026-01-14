@@ -259,7 +259,8 @@ const Custom = () => {
     if (playlist.length !== 5) {
       setIsAlertOpen(true);
     } else {
-      // 10곡 이면 바로 진행
+      // 5곡 이면 바로 진행
+      playlist.sort(()=> 0.5-Math.ramdom())
       console.log("게임 생성:", playlist);
       navigate("/generation", { state: { songs: playlist } });
     }
@@ -274,13 +275,14 @@ const Custom = () => {
   const handleJustStart = () => {
     setIsAlertOpen(false);
     console.log("적은 곡수로 진행:", playlist);
+    playlist.sort(()=> 0.5 - Math.random())
     navigate("/generation", { state: { songs: playlist } });
   };
 
   // "랜덤으로 채워서 진행하기" 핸들러
   const handleFillAndStart = () => {
     const neededCount = 5 - playlist.length;
-
+    console.log('under')
     // 전체 DB(MOCK_DATABASE + MOCK_CHART 등 가용 자원)에서
     // 현재 playlist에 없는 곡들만 필터링
     const currentIds = playlist.map((s) => s.id);
@@ -298,17 +300,18 @@ const Custom = () => {
 
     setPlaylist(newPlaylist); // (선택사항) 화면 업데이트
     setIsAlertOpen(false);
+    newPlaylist.sort(()=> 0.5 - Math.random())
     navigate("/generation", { state: { songs: newPlaylist } });
   };
 
   const handleOverStart = () => {
-    if (playlist.length > 5) {
-      playlist.sort(()=> 0.5 - Math.random() ).slice(0,10)
-    }
-    setPlaylist(playlist);
+    console.log('over')
+    const newPlaylist = playlist.sort(()=> 0.5 - Math.random()).slice(0,5)
+
+    setPlaylist(newPlaylist);
     setIsAlertOpen(false);
-    console.log(playlist)
-    navigate("/generation", {state : {songs : playlist}})
+    console.log(newPlaylist)
+    navigate("/generation", {state : {songs : newPlaylist}})
   };
 
   const handleToggleSelectAll = () => {
@@ -516,7 +519,7 @@ const Custom = () => {
         onClose={() => setIsAlertOpen(false)} // 1. 뒤로 가기
         onProceed={handleJustStart} // 2. 이대로 진행
         onFillRandom={handleFillAndStart} // 3. 랜덤 채우기
-        overStart = {handleOverStart} // 10곡 이상으로 진행하는 경우
+        overStart = {handleOverStart} // 5곡 이상으로 진행하는 경우
       />
     </div>
   );

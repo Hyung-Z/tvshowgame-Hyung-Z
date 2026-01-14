@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Loader2, Play, CheckCircle2, AlertTriangle } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
 import { extractLyricSegment } from '../../utils/textUtils';
+import {analyzeLyricsAndGetPrompt, generateImage} from '../../services/gemini'
 
 const Generation = () => {
   const navigate = useNavigate();
@@ -21,10 +21,6 @@ const Generation = () => {
   // 중복 실행 방지를 위한 Ref
   const hasStartedRef = useRef(false);
 
-  const ai = new GoogleGenAI({
-    apiKey: import.meta.env.VITE_GOOGLE_API_KEY, // .env에 키가 있어야 합니다
-  });
-
   // --- API 호출 함수 ---
   const generateImages = async () => {
     if (initialSongs.length === 0) return;
@@ -34,45 +30,33 @@ const Generation = () => {
       // 한 곡씩 순차적으로 생성 (Promise.all은 Rate Limit 걸릴 수 있어서 순차 처리 권장)
       for (let i = 0; i < initialSongs.length; i++) {
         const song = initialSongs[i];
-        setCurrentGeneratingIndex(i + 1); // 현재 n번째 생성 중 표시
-        const lyricSegment = song.lyrics ? extractLyricSegment(song.lyrics) : song.lyricSegment;
-        song.lyricsSegment = lyricSegment; 
+        setCurrentGeneratingIndex(i + 1); // 현재 n번째 생성 중 표시        
+        let promptdata;
+        let lyricsSeg;
+        let prompt;
+
+        promptdata = await analyzeLyricsAndGetPrompt(song.lyrics)
         
-        const prompt = `
-          A digital art illustration representing the following K-pop song lyrics: "${lyricSegment}".
-          The mood should match the song "${song.title}" by "${song.artist}".
-          Style: High quality, anime style, vibrant colors, atmosphere follows mood of the lyrics.
-          No text inside the image. if lyrics include some unappropriate words, please omit them and make it please.
-        `;
-
-        const response = await ai.models.generateContent({
-          model: "gemini-2.5-flash-image", // ✨ 요청하신 모델 사용
-          contents: prompt,
-        });
-
-        let b64Data = null;
-        let imageUrl = null;
-
-        const candidates = response.candidates;
-        if (candidates && candidates[0] && candidates[0].content && candidates[0].content.parts) {
-          for (const part of candidates[0].content.parts) {
-            if (part.inlineData) {
-              // 이미지 데이터 발견!
-              b64Data = part.inlineData.data;
-              // 브라우저에서 바로 보여줄 수 있는 URL 포맷으로 변경
-              imageUrl = `data:${part.inlineData.mimeType};base64,${b64Data}`;
-              break; // 이미지를 찾았으면 루프 종료
-            }
-          }
+        console.log(promptdata)
+        
+        if (!promptdata) {
+          console.error("가사 추출 실패")
+          lyricsSeg = extractLyricSegment(song.lyrics)
+          prompt = `make a image describe the lyrics : ${lyricsSeg}. 
+          if lyrics have some inappropriate words, omit it. then make it.
+          No text inside, image style except realistic. And other conditions follow the mood of lyrics.`
+        }
+        else {
+          lyricsSeg = promptdata['korean_lyric']
+          prompt = promptdata['english_prompt']
         }
 
-        if (!imageUrl) {
-          throw new Error("이미지 생성 응답에 이미지 데이터가 없습니다.");
-        }
+        const {b64Data, imageUrl} = await generateImage(prompt)
 
         // 3. 결과 저장
         completedList.push({
           ...song,
+          lyricsSeg : lyricsSeg,
           imageUrl: imageUrl, // 화면 표시용
           b64Data: b64Data    // 다운로드용 (Base64 원본)
         });
@@ -106,7 +90,8 @@ const Generation = () => {
       if (song.b64Data) {
         // 파일명 안전하게 변환
         const safeTitle = song.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        downloadBase64(song.b64Data, `${safeTitle}_${index}`);
+        const safeseg = song.lyricsSeg.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        downloadBase64(song.b64Data, `${safeTitle}_${safeseg}`);
       }
     });
   };

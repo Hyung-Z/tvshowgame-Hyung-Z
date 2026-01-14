@@ -43,16 +43,16 @@ const SearchModal = ({ isOpen, onClose, onSearch }) => {
         {/* 입력 폼 */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-500 mb-1">곡명</label>
-            <input name="title" value={inputs.title} onChange={handleChange}
-              className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" 
-              placeholder="예: 하얀 그리움" />
-          </div>
-          <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1">가수</label>
             <input name="artist" value={inputs.artist} onChange={handleChange}
               className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" 
               placeholder="예: 프로미스나인" />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 mb-1">곡명</label>
+            <input name="title" value={inputs.title} onChange={handleChange}
+              className="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" 
+              placeholder="예: 하얀 그리움" />
           </div>
           <div className="flex gap-2">
             <div className="flex-1">

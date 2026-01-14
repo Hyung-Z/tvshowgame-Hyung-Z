@@ -57,9 +57,9 @@ const Result = () => {
               </div>
 
               {/* (선택 사항) YouTube 링크가 있다면 바로가기 아이콘 표시 */}
-              {song.videoId && (
+              {song.youtubeUrl && (
                  <a 
-                   href={`https://www.youtube.com/watch?v=${song.videoId}`} 
+                   href={`https://www.youtube.com/watch?v=${song.youtubeUrl}`} 
                    target="_blank" 
                    rel="noopener noreferrer"
                    className="p-2 text-gray-300 hover:text-red-500 transition-colors"
