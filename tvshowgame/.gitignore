@@ -14,7 +14,8 @@ dist
 .env.*.local
 dist-ssr
 *.local
-
+.dev.vars
+.wrangler
 
 .env
 .env.development.local
