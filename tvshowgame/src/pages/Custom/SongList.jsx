@@ -9,7 +9,7 @@ const SongList = ({ songs, selectedIds, onToggleSelect, onDragStart, onDragEnter
           {emptyMessage} {/* 전달받은 메시지 출력 */}
         </div>
       ) : (
-        <ul className="divide-y divide-gray-100">
+        <ul className="divide-y divide-gray-100 text-[10px] sm:text-xs md:text-base">
           {songs.map((song) => {
             const isSelected = selectedIds.includes(song.id);
             return (
@@ -22,7 +22,7 @@ const SongList = ({ songs, selectedIds, onToggleSelect, onDragStart, onDragEnter
               >
                 <div className="flex flex-col ">
                   <span className="font-bold text-gray-800">{song.title}</span>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-[8px] sm:text-xs md:text-sm text-gray-500">
                     <span>{song.artist}</span>
                     <span className="mx-2 text-gray-300">|</span>
                     <span>{song.date}</span>

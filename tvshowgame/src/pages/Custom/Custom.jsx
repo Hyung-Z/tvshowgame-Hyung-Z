@@ -345,19 +345,19 @@ const Custom = () => {
     }
   };
   return (
-    <div className="h-[calc(100vh-3rem)] flex flex-col p-4 max-w-7xl mx-auto">
+    <div className="h-[calc(100vh-3rem)] flex flex-col p-2 md:p-4 max-w-7xl mx-[1rem] xl:mx-auto">
       {/* 상단 영역: 모드 전환 버튼들 (우측 리스트 제어) */}
-      <div className="flex justify-end mb-4 gap-2">
+      <div className="flex justify-end mb-4 gap-2 ">
         <button
           onClick={() => setRightMode("chart")}
-          className={`flex items-center px-4 py-2 rounded-lg border font-medium transition-colors
+          className={`text-[10px] lg:text-base flex items-center px-2 py-1 md:px-4 md:py-2 rounded-lg border font-medium transition-colors
             ${
               rightMode === "chart"
                 ? "bg-blue-600 text-white border-blue-600"
                 : "bg-white text-gray-600 border-gray-300"
             }`}
         >
-          <Music size={18} className="mr-2" /> 음원 차트
+          <Music className="sm:mr-2 w-3 h-3 lg:w-4 lg:h-4"/> <span className="hidden sm:block">음원 차트</span>
         </button>
 
         <div className="relative">
@@ -365,19 +365,18 @@ const Custom = () => {
           {/* relative 컨테이너 추가 */}
           <button
             onClick={handleSearchModeClick}
-            className={`flex items-center px-4 py-2 rounded-lg border font-medium transition-colors group
+            className={`text-[10px] lg:text-base flex items-center px-2 py-1 md:px-4 md:py-2 rounded-lg border font-medium transition-colors group
               ${
                 rightMode === "search"
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
               }`}
           >
-            <Search size={18} className="mr-2" />
-            직접 검색
+            <Search className="sm:mr-2 w-3 h-3 lg:w-4 lg:h-4" />
+            <span className="hidden sm:block">직접 검색</span>
             {rightMode === "search" && (
               <ChevronDown
-                size={16}
-                className="ml-2 opacity-80 group-hover:translate-y-0.5 transition-transform"
+                className="w-3 h-3 lg:w-4 lg:h-4 ml-2 opacity-80 group-hover:translate-y-0.5 transition-transform"
               />
             )}
           </button>
@@ -392,16 +391,16 @@ const Custom = () => {
       </div>
 
       {/* 메인 컨텐츠: 3단 레이아웃 (좌 - 중 - 우) */}
-      <div className="flex-1 flex gap-4 min-h-0">
+      <div className="flex-1 flex gap-1 md:gap-4 min-h-0">
         {" "}
         {/* 1. 왼쪽: 플레이리스트 */}
-        <div className="w-[500px] flex-1 flex flex-col">
+        <div className="w-2/5 lg:w-[500px] flex-1 flex flex-col">
           <div className="flex justify-between items-center mb-2">
             {/* 타이틀과 곡 수 표시 */}
-            <h3 className="font-bold text-lg text-gray-700 flex items-center">
-              Custom Playlist
-              <span className="ml-2 text-sm font-normal text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
-                {playlist.length}곡
+            <h3 className="font-bold text:xs md:text-lg text-gray-700 flex items-center">
+              Custom <span className="hidden md:block">Playlist</span>
+              <span className="ml-2 text-[8px] md:text-sm font-normal text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                {playlist.length}<span className="hidden sm:inline">곡</span>
               </span>
             </h3>
 
@@ -409,16 +408,16 @@ const Custom = () => {
             <div className="relative">
               <button
                 onClick={() => setIsPresetOpen(!isPresetOpen)}
-                className={`flex items-center text-sm px-3 py-1.5 rounded-lg border transition-colors
+                className={`flex items-center text-[10px] lg:text-sm px-3 py-1.5 rounded-lg border transition-colors
                         ${
                           isPresetOpen
                             ? "bg-gray-800 text-white border-gray-800"
                             : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
                         }`}
               >
-                <ListMusic size={16} className="mr-1.5" />
-                추천 목록
-                <ChevronDown size={14} className="ml-1 opacity-70" />
+                <ListMusic className="sm:mr-1.5 w-3 h-3 lg:w-4 lg:h-4" />
+                <span className="hidden sm:block">추천 목록</span>
+                <ChevronDown className="ml-1 opacity-70 w-3 h-3 lg:w-4 lg:h-4" />
               </button>
 
               {/* ✨ 프리셋 모달 (버튼 아래에 위치) */}
@@ -433,7 +432,7 @@ const Custom = () => {
           {playlist.length > 0 && (
             <button
               onClick={handleClearPlaylist}
-              className="text-xs text-red-500 hover:bg-red-50 px-2 py-1 rounded"
+              className="text-xs text-red-500 hover:bg-red-50 px-2 py-1 rounded font-bold"
             >
               모두 비우기 🗑️
             </button>
@@ -447,28 +446,28 @@ const Custom = () => {
           />
         </div>
         {/* 2. 중앙: 이동 버튼 */}
-        <div className="w-16 flex flex-col justify-center gap-4 items-center">
+        <div className="w-8 lg:w-16 flex flex-col justify-center gap-4 items-center">
           <button
             onClick={handleAdd}
             disabled={selectedRight.length === 0}
-            className="p-3 rounded-full bg-white border border-gray-300 shadow-sm hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 disabled:opacity-30 disabled:hover:bg-white transition"
+            className="p-1 md:p-3 rounded-full bg-white border border-gray-300 shadow-sm hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 disabled:opacity-30 disabled:hover:bg-white transition"
             title="목록에 추가"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
           </button>
 
           <button
             onClick={handleRemove}
             disabled={selectedLeft.length === 0}
-            className="p-3 rounded-full bg-white border border-gray-300 shadow-sm hover:bg-red-50 hover:border-red-300 hover:text-red-600 disabled:opacity-30 disabled:hover:bg-white transition"
+            className="p-1 md:p-3 rounded-full bg-white border border-gray-300 shadow-sm hover:bg-red-50 hover:border-red-300 hover:text-red-600 disabled:opacity-30 disabled:hover:bg-white transition"
             title="목록에서 제거"
           >
-            <ChevronRight size={24} />
+            <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
           </button>
         </div>
         {/* 3. 오른쪽: 노래 목록 (차트 or 검색결과) */}
-        <div className="w-[500px] flex-1 flex flex-col">
-          <h3 className="font-bold text-lg mb-2 text-gray-700">
+        <div className="w-2/5 lg:w-[500px] flex-1 flex flex-col">
+          <h3 className="font-bold text:xs md:text-lg mb-2 text-gray-700">
             {rightMode === "chart" ? "Monthly Chart" : "Search Results"}
           </h3>
           <button
@@ -498,7 +497,7 @@ const Custom = () => {
       <div className="flex flex-col md:flex-row gap-6 mt-6 flex justify-center">
         <button
           onClick={handleCreateChartClick} // ✨ 핸들러 연결
-          className="bg-gray-900 text-white text-lg font-bold py-4 px-12 rounded-xl shadow-lg 
+          className="bg-gray-900 text-white text-sm md:text-lg font-bold py-4 px-12 rounded-xl shadow-lg 
                         hover:bg-blue-600 hover:shadow-blue-500/30 hover:-translate-y-1 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           월간차트로 게임 생성하기
@@ -506,7 +505,7 @@ const Custom = () => {
         
         <button
           onClick={handleCreateClick} // ✨ 핸들러 연결
-          className="bg-gray-900 text-white text-lg font-bold py-4 px-12 rounded-xl shadow-lg 
+          className="bg-gray-900 text-white text-sm md:text-lg font-bold py-4 px-12 rounded-xl shadow-lg 
                         hover:bg-blue-600 hover:shadow-blue-500/30 hover:-translate-y-1 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           {playlist.length}곡으로 게임 생성하기

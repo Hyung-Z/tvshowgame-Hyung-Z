@@ -60,16 +60,16 @@ const Game = () => {
   if (!currentSong) return null;
 
   return (
-    <div className="flex h-[calc(100vh-3rem)]">
+    <div className="flex h-[calc(100vh-5rem)] lg:h-[calc(100vh-3rem)] flex-col lg:flex-row">
       
-      {/* 1. 좌측 패널 (미디어 영역) */}
-      <div className="flex-1 bg-gray-900 flex items-center justify-center relative overflow-hidden">
+      {/* 1. 상방/좌측 패널 (미디어 영역) */}
+      <div className="flex-1 bg-gray-900 flex items-center justify-center relative overflow-scroll lg:overflow-hidden mb-5 lg:mb-0">
         
         {/* ✨ videoId가 있는지 확인 */}
         {showResult && currentSong.youtubeUrl ? (
-          <div className='relative w-full'>
+          <div className='relative w-full flex flex-col m-auto py-5 gap-10 lg:py-0 lg:gap-1'>
           <iframe
-            className="w-[100%] h-[50vh]"
+            className="w-full h-[40vh] lg:h-[50vh]"
             // ✨ ID를 직접 주입 (로직이 매우 간단해짐)
             src={`https://www.youtube.com/embed/${currentSong.youtubeUrl}?autoplay=1&rel=0`}
             title="YouTube video player"
@@ -108,7 +108,7 @@ const Game = () => {
                 <span className="inline-block px-4 py-1 bg-blue-100 text-blue-700 font-bold rounded-full text-sm mb-2">
                   Question {currentIndex + 1} / {totalRounds}
                 </span>
-                <h2 className="text-3xl font-bold text-gray-800">이 그림은 어떤 노래일까요?</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">이 그림은 어떤 노래일까요?</h2>
              </>
            ) : (
              <div className="flex flex-col items-center animate-fadeIn">
@@ -135,11 +135,11 @@ const Game = () => {
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
                 placeholder="정답을 입력하세요"
-                className="flex-1 px-5 py-4 text-lg border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none bg-gray-50 focus:bg-white"
+                className="flex-1 px-5 py-4 text-sm sm:text-lg border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none bg-gray-50 focus:bg-white"
                 autoFocus
               />
               <button type="submit" className="px-6 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-md flex items-center justify-center font-bold">
-                제출 <Send size={20} className="ml-2" />
+                <span className="hidden sm:inline">제출</span> <Send size={20} className="sm:ml-2" />
               </button>
             </div>
           </form>
@@ -182,7 +182,7 @@ const Game = () => {
                 onClick={handleNextProblem}
                 className="flex items-center px-8 py-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 hover:-translate-y-1 transition-all shadow-lg font-bold text-lg"
               >
-                다음 문제 <ArrowRight size={20} className="ml-2" />
+                다음<span className="hidden sm:block">문제</span> <ArrowRight size={20} className="ml-2" />
               </button>
             )}
         </div>

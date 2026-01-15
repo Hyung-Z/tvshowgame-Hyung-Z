@@ -10,7 +10,7 @@ const Home = () => {
         AI 생성 이미지를 보고, 노래 제목을 맞혀보세요
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-6 w-[30%] max-w-4xl justify-center">
+      <div className="flex flex-col md:flex-row gap-6 w-[30%] max-w-4xl min-w-[250px] justify-center">
         {/* 새로 만들기 버튼 */}
         <button 
           className="flex-1 bg-white p-8 rounded-xl border border-gray-200 shadow-md 
