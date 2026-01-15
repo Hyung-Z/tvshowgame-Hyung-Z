@@ -63,13 +63,13 @@ const Game = () => {
     <div className="flex h-[calc(100vh-5rem)] lg:h-[calc(100vh-3rem)] flex-col lg:flex-row">
       
       {/* 1. 상방/좌측 패널 (미디어 영역) */}
-      <div className="flex-1 bg-gray-900 flex items-center justify-center relative overflow-scroll lg:overflow-hidden mb-5 lg:mb-0">
+      <div className="min-h-[100vw] lg:min-h-auto flex-1 bg-gray-900 flex items-center justify-center relative overflow-scroll lg:overflow-hidden mb-5 lg:mb-0">
         
         {/* ✨ videoId가 있는지 확인 */}
         {showResult && currentSong.youtubeUrl ? (
-          <div className='relative w-full flex flex-col m-auto py-5 gap-10 lg:py-0 lg:gap-1'>
+          <div className='relative w-full flex flex-col m-auto gap-5 lg:py-0 lg:gap-5'>
           <iframe
-            className="w-full h-[40vh] lg:h-[50vh]"
+            className="h-[100vw] lg:h-[40vh]"
             // ✨ ID를 직접 주입 (로직이 매우 간단해짐)
             src={`https://www.youtube.com/embed/${currentSong.youtubeUrl}?autoplay=1&rel=0`}
             title="YouTube video player"
@@ -79,7 +79,7 @@ const Game = () => {
             <img 
               src={currentSong.imageUrl} 
               alt="Quiz" 
-              className="h-[40vh] object-contain mr-auto ml-auto" 
+              className="h-full w-full lg:h-[40vh] object-contain mr-auto ml-auto" 
             />
             </div>
         ) : (
@@ -88,7 +88,7 @@ const Game = () => {
             <img 
               src={currentSong.imageUrl} 
               alt="Quiz" 
-              className="w-full h-full object-contain" 
+              className="w-full h-full object-contain my-auto" 
             />
           ) : (
             <div className="text-center opacity-50">
@@ -161,7 +161,7 @@ const Game = () => {
 
         <div className="border-t border-gray-100 my-8"></div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-16">
             <div className="flex flex-col">
               <span className="text-sm text-gray-500 font-medium">CURRENT SCORE</span>
               <span className="text-4xl font-extrabold text-gray-900">

@@ -260,7 +260,7 @@ const Custom = () => {
       setIsAlertOpen(true);
     } else {
       // 5곡 이면 바로 진행
-      playlist.sort(()=> 0.5-Math.ramdom())
+      playlist.sort(()=> 0.5-Math.random())
       console.log("게임 생성:", playlist);
       navigate("/generation", { state: { songs: playlist } });
     }
