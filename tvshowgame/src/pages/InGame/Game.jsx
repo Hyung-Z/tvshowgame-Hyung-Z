@@ -32,11 +32,14 @@ const Game = () => {
     if (!userAnswer.trim()) return;
 
     const cleanUser = userAnswer.replace(/\s+/g, '').toLowerCase();
+    const withoutBracket = currentSong.title.split('(')[0].replace(/\s+/g, '').toLowerCase().trim();
     const cleanAnswer = currentSong.title.replace(/\s+/g, '').toLowerCase();
     const isCorrect = cleanUser === cleanAnswer;
+    const isCorrect2 = cleanUser === withoutBracket;
+    const finalCorrect = isCorrect || isCorrect2;
 
-    setIsCorrectLast(isCorrect);
-    if (isCorrect) setScore(prev => prev + 1);
+    setIsCorrectLast(finalCorrect);
+    if (finalCorrect) setScore(prev => prev + 1);
     
     setShowResult(true);
   };
