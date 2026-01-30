@@ -4,7 +4,7 @@
  * @returns {string} - 추출된 가사 세그먼트
  */
 export const extractLyricSegment = (fullLyrics) => {
-  if (!fullLyrics) return "K-pop song illustration"; // 가사가 없을 경우 기본값
+  if (!fullLyrics) return "가사 미등록 : 제보 바랍니다."; // 가사가 없을 경우 기본값
 
   // 1. 줄바꿈(\n) 기준으로 가사를 배열로 나눕니다.
   const lines = fullLyrics
@@ -13,7 +13,7 @@ export const extractLyricSegment = (fullLyrics) => {
     .filter((line) => line.length > 5);
   // (길이가 너무 짧은 'Yeah', 'Oh' 같은 추임새는 제외하기 위해 길이 5 이상만 필터링)
 
-  if (lines.length === 0) return fullLyrics.slice(0, 50); // 필터링 후 남은게 없으면 앞에서 자름
+  if (lines.length === 0) return fullLyrics.slice(0, 30); // 필터링 후 남은게 없으면 앞에서 자름
 
   // 2. 랜덤한 시작 위치를 잡습니다. (전체 라인 수 - 뽑을 라인 수 범위 내에서)
   const lineCountToPick = 2; // 2줄 정도 뽑기 (너무 길면 AI가 헷갈려함)
