@@ -100,3 +100,7 @@ npx wrangler pages dev -- npm run dev
 - 배포: GitHub Main 브랜치에 Push 하면 Cloudflare Pages가 자동으로 빌드 및 배포를 수행합니다.
 
 - Production 환경 변수: 실제 배포 시에는 Cloudflare Dashboard의 [Settings] -> [Environment variables]에 GOOGLE_API_KEY를 등록해야 합니다.
+
+
+## FAMILY SITE 
+https://tvshogame.pages.dev

@@ -8,6 +8,7 @@ import {
   X,
   Download,
   Image as ImageIcon,
+  Gamepad2
 } from "lucide-react";
 import JSZip from 'jszip';
 
@@ -213,6 +214,13 @@ const Result = () => {
           className="w-full py-4 bg-gray-900 text-white rounded-xl font-bold text-lg hover:bg-gray-800 transition shadow-lg flex items-center justify-center"
         >
           <Home size={20} className="mr-2" /> 메인으로 돌아가기
+        </button>
+
+        <button
+          onClick={() => window.open("https://tvshowgame.pages.dev", "_blank")}
+          className="w-full py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-500 transition shadow-lg flex items-center justify-center mb-3"
+        >
+          <Gamepad2 size={20} className="mr-2" /> 예능게임 더 둘러보기
         </button>
       </div>
       {/* 3. 홈으로 버튼 */}
