@@ -3,11 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Loader2, Play, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { extractLyricSegment } from '../../utils/textUtils';
 import {analyzeLyricsAndGetPrompt, generateImage} from '../../services/gemini'
+import { useHeartContext } from '../../components/common/HeartContent';
 
 const Generation = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const { useHeart } = useHeartContext();
+
   // Custom 페이지에서 넘겨준 노래 목록
   const initialSongs = location.state?.songs || [];
 
@@ -80,6 +82,7 @@ const Generation = () => {
   useEffect(() => {
     if (!hasStartedRef.current && initialSongs.length > 0) {
       hasStartedRef.current = true;
+      useHeart();
       generateImages();
     } else if (initialSongs.length === 0) {
       setErrorMsg("노래 데이터가 없습니다.");

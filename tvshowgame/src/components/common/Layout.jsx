@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react'; // 뒤로가기 아이콘 사용 (npm install lucide-react 필요)
+import { ChevronLeft, Heart } from 'lucide-react'; // 뒤로가기 아이콘 사용 (npm install lucide-react 필요)
+
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -31,10 +32,13 @@ const Layout = () => {
             <Link to="/" className="text-sm font-bold tracking-widest text-gray-900 cursor-pointer">
               TVSHOWGAME
             </Link>
+
         </div>
         
         {/* 우측 빈 공간 (중앙 정렬 균형을 위해 필요) */}
-        <div className="w-12"></div> 
+        <div className="w-12">
+
+        </div> 
       </header>
       {/* --- 공통 헤더 끝 --- */}
 
