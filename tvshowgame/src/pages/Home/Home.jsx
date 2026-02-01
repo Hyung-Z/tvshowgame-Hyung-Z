@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useHeartContext } from "../../components/common/HeartContent";
-import { Heart } from "lucide-react";
+import { Heart, Gamepad2 } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 훅
@@ -22,7 +22,7 @@ const Home = () => {
         하루에 3판, AI 생성 이미지를 보고, 노래 제목을 맞혀보세요
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-6 w-[30%] max-w-4xl min-w-[250px] justify-center">
+      <div className="flex flex-col gap-6 w-[30%] max-w-4xl min-w-[250px] justify-center">
         {/* 새로 만들기 버튼 */}
         <button
           className="flex-1 bg-white p-8 rounded-xl border border-gray-200 shadow-md 
@@ -48,6 +48,13 @@ const Home = () => {
               />
             ))}
           </div>
+        </button>
+
+        <button
+          onClick={() => window.open("https://tvshowgame.pages.dev", "_blank")}
+          className="w-full py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-500 transition shadow-lg flex items-center justify-center mb-3"
+        >
+          <Gamepad2 size={20} className="mr-2" /> 예능게임 더 둘러보기
         </button>
       </div>
       <div className="mt-16 px-6 py-10 bg-white/80 rounded-2xl max-w-2xl mx-auto text-left shadow-sm">
