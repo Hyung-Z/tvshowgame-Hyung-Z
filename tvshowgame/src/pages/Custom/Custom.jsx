@@ -46,7 +46,12 @@ const Custom = () => {
 
       try {
         setIsChartLoading(true);
-        const response = await fetch("charts/chart202601.json");
+        const response = await fetch("https://raw.githubusercontent.com/Hyung-Z/tvshowgame/refs/heads/main/chart_live.json");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const chartTitles = await response.json();
         const mappedChart = chartTitles
           .map((title) => {
