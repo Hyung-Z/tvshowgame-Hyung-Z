@@ -4,12 +4,47 @@
 
 K-POP 가사의 특정 부분을 Google Gemini AI를 이용해 그림으로 변환하고, 사용자가 해당 그림을 보고 노래 제목을 맞히는 인터랙티브 웹 게임입니다.
 
+https://tvshogame2.pages.dev
+
+데모 영상 보러 가기
+[![시연 영상 썸네일](/imgs/1.png)](https://youtu.be/sjn2AowJGLo)
 
 ## ✨ 주요 기능 (Key Features)
 
-- **🤖 AI 이미지 생성**: Google Gemini API를 활용하여 노래 가사를 실시간/사전 생성된 픽셀 아트 및 일러스트로 보여줍니다.
-- **🎵 유튜브 뮤직비디오 연동**: 정답을 맞히거나 게임이 끝나면 해당 곡의 뮤직비디오가 자동으로 재생됩니다.
-- **📱 모바일 최적화 (Responsive)**: PC는 물론 모바일 환경에서도 완벽한 UI/UX를 제공합니다 (100dvh, 터치 최적화).
+
+### **🎵 노래 커스텀 및 랜덤 선택 기능**: 
+원하는 노래를 직접 선택하거나, 월간 차트로 구성하거나, 혹은 아무런 조건 없이 시작하여 완전 랜덤으로 구성할 수 있습니다.
+
+![커스텀](/imgs/demo_custom.png)
+
+
+### **🤖 AI 이미지 생성**: 
+Google Gemini API를 활용하여 노래 가사를 실시간/사전 생성된 픽셀 아트 및 일러스트로 보여줍니다.
+
+![que](/imgs/demo_que.png)
+
+
+
+### **🎵 유튜브 뮤직비디오 연동**: 
+
+정답을 맞히거나 게임이 끝나면 해당 곡의 뮤직비디오가 자동으로 재생됩니다.
+
+![reslut](/imgs/demo_result.png)
+
+### **📱 모바일 최적화 (Responsive)**: 
+PC는 물론 모바일 환경에서도 완벽한 UI/UX를 제공합니다.
+
+모바일에서는 상단의 정답 문제 영역에서 스크롤을 통해 뮤직비디오를 확인할 수 있습니다.
+
+![mobile](</imgs/demo_mobile.png>)
+
+
+### **💾 카드 제작 및 보관 등 상호작용 가능 **:
+어찌보면 하나뿐인 그림을 저장 및 보관할 수 있습니다. (원본 이미지, 카드 형태 모두 가능)
+
+![alt text](/imgs/demo_card.png)
+
+
 - **💾 PWA 지원 (Installable)**: 앱스토어 설치 없이 홈 화면에 추가하여 네이티브 앱처럼 전체 화면으로 즐길 수 있습니다.
 - **⚡ Serverless Architecture**: Cloudflare Pages와 Functions를 사용하여 별도의 서버 구축 없이 빠르고 안전하게 동작합니다.
 
@@ -23,20 +58,18 @@ K-POP 가사의 특정 부분을 Google Gemini AI를 이용해 그림으로 변�
 ### Backend & Deployment
 - **Platform**: Cloudflare Pages
 - **Serverless**: Cloudflare Functions (API Proxy)
-- **Runtime**: Node.js / Edge Runtime
 
 ### APIs
 - **AI Model**: Google Gemini-2.5-flash-lite / Gemini-2.5-flash-preview-image
 - **Video**: YouTube Embed API
 
-## 🚀 설치 및 실행 (Getting Started)
+## 🚀 로컬 설치 및 실행 (Getting Started)
 
 이 프로젝트를 로컬 환경에서 실행하려면 다음 단계가 필요합니다.
 
 ### 1. 레포지토리 클론
 ```bash
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
+git clone https://github.com/Hyung-Z/tvshowgame-Hyung-Z.git 
 ```
 
 ### 2. 패키지 설치
@@ -47,6 +80,7 @@ npm install
 ### 3. 환경 변수 설정
 프로젝트 루트에 .dev.vars 파일을 생성하고 Google API Key를 입력하세요. (Cloudflare Functions는 로컬 개발 시 .env 대신 .dev.vars를 사용합니다.)
 ```bash
+
 # .dev.vars
 GOOGLE_API_KEY=your_google_gemini_api_key
 ## 주의: .dev.vars, .wrangler/ 폴더는 절대 GitHub에 업로드하지 마세요. (.gitignore에 포함 필수)
@@ -89,17 +123,17 @@ npx wrangler pages dev -- npm run dev
 │   ├── hooks/          # 커스텀 훅
 │   └── App.jsx         # 메인 라우팅 및 레이아웃
 │
-├── .gitignore          # Git 제외 설정
 ├── vite.config.js      # Vite 설정
 └── README.md           # 프로젝트 설명서
 ```
 
 ## 🔒 보안 및 배포 (Security & Deployment)
+
 - API Key 보안: Google API Key는 클라이언트에 노출되지 않고 Cloudflare Edge 서버에서 안전하게 처리됩니다.
 
 - 배포: GitHub Main 브랜치에 Push 하면 Cloudflare Pages가 자동으로 빌드 및 배포를 수행합니다.
 
-- Production 환경 변수: 실제 배포 시에는 Cloudflare Dashboard의 [Settings] -> [Environment variables]에 GOOGLE_API_KEY를 등록해야 합니다.
+- Production 환경 변수: 실제 배포는 Cloudflare Dashboard의 [Settings] -> [Environment variables]에 GOOGLE_API_KEY를 등록해서 사용 중입니다.
 
 
 ## FAMILY SITE 
