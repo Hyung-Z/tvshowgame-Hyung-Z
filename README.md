@@ -6,8 +6,8 @@ K-POP 가사의 특정 부분을 Google Gemini AI를 이용해 그림으로 변�
 
 https://tvshogame2.pages.dev
 
-데모 영상 보러 가기
-[![시연 영상 썸네일](/imgs/1.png)](https://youtu.be/sjn2AowJGLo)
+
+[데모 영상 보러 가기](https://youtu.be/sjn2AowJGLo)
 
 ## ✨ 주요 기능 (Key Features)
 
