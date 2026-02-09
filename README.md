@@ -4,7 +4,7 @@
 
 K-POP 가사의 특정 부분을 Google Gemini AI를 이용해 그림으로 변환하고, 사용자가 해당 그림을 보고 노래 제목을 맞히는 인터랙티브 웹 게임입니다.
 
-https://tvshogame2.pages.dev
+https://tvshowgame2.pages.dev
 
 
 [데모 영상 보러 가기](https://youtu.be/sjn2AowJGLo)
@@ -137,4 +137,4 @@ npx wrangler pages dev -- npm run dev
 
 
 ## FAMILY SITE 
-https://tvshogame.pages.dev
+https://tvshowgame.pages.dev
