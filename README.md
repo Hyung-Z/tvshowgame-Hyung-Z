@@ -60,7 +60,7 @@ PC는 물론 모바일 환경에서도 완벽한 UI/UX를 제공합니다.
 - **Serverless**: Cloudflare Functions (API Proxy)
 
 ### APIs
-- **AI Model**: Google Gemini-2.5-flash-lite / Gemini-2.5-flash-preview-image
+- **AI Model**: Google Gemini 2.5 Flash-Lite / Gemini 3.1 Flash Lite Image
 - **Video**: YouTube Embed API
 
 ## 🚀 로컬 설치 및 실행 (Getting Started)

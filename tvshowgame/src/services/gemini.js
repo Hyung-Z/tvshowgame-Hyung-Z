@@ -36,7 +36,7 @@ export const analyzeLyricsAndGetPrompt = async (fullLyrics) => {
 };
 
 /**
- * 🎨 2단계: 이미지 생성 (gemini2.5-flash-img)
+ * 🎨 2단계: 이미지 생성 (Gemini 3.1 Flash Lite Image)
  * 프롬프트를 주면 Base64 이미지를 반환합니다.
  */
 export const generateImage = async (prompt) => {

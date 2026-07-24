@@ -9,7 +9,7 @@ export async function onRequestPost(context) {
     }
 
     // 2. Google REST API 설정 (제공해주신 curl 기반)
-    const model = "gemini-2.5-flash-image";
+    const model = "gemini-3.1-flash-lite-image";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     // 3. 요청 바디 구성
