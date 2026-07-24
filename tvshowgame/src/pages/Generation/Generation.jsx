@@ -37,7 +37,7 @@ const Generation = () => {
         let lyricsSeg;
         let prompt;
 
-        promptdata = await analyzeLyricsAndGetPrompt(song.lyrics)
+        promptdata = await analyzeLyricsAndGetPrompt(song.lyrics, song.title, song.artist)
         
         console.log(promptdata)
         

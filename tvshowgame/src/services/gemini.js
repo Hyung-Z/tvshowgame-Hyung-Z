@@ -1,8 +1,8 @@
 /**
- * 🧠 1단계: 가사 분석 및 프롬프트 생성 (Gemini 2.0 Flash-Lite)
+ * 🧠 1단계: 가사 분석 및 프롬프트 생성 (Gemini 2.5 Flash-Lite)
  * 노래 정보를 주면 { 한글가사, 영어프롬프트 } 객체를 반환합니다.
  */
-export const analyzeLyricsAndGetPrompt = async (fullLyrics) => {
+export const analyzeLyricsAndGetPrompt = async (fullLyrics, title, artist) => {
   try {
     console.log("📝 가사 분석 요청 중...");
 
@@ -12,15 +12,14 @@ export const analyzeLyricsAndGetPrompt = async (fullLyrics) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      // 전체 가사를 보냅니다 (제목/가수는 프롬프트 짤 때 필요하다면 같이 보내세요)
-      body: JSON.stringify({ fullLyrics: fullLyrics }), 
+      body: JSON.stringify({ fullLyrics, title, artist }),
     });
 
     if (!response.ok) {
       throw new Error("가사 분석 서버 오류");
     }
 
-    // 2. 결과 받기 (이미 랜덤 선택된 한 곡의 데이터가 옴)
+    // 2. 결과 받기
     const result = await response.json();
 
     // { korean_lyric: "...", english_prompt: "...", usedStyle: "..." }
